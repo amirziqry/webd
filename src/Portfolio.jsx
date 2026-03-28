@@ -500,7 +500,7 @@ function CaseStudies() {
       }}
     >
       <div style={{ maxWidth: 960, margin: "0 auto" }}>
-        <SectionLabel>Selected Work</SectionLabel>
+        <SectionLabel>Previous Works</SectionLabel>
         <SectionTitle isMobile={isMobile}>Case Studies</SectionTitle>
 
         <div
