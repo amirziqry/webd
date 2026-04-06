@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   ArrowUpRight,
   Code2,
@@ -16,27 +15,31 @@ import {
   Menu,
   X,
 } from "lucide-react";
+// At the top of your file, add these imports:
+import yusufRick from "./assets/yusuf-rick.jpg";
+import amirZiqry from "./assets/amir-ziqry.jpg";
+import { useState, useEffect, useRef } from "react";
 
 /* ─────────────────────────────────────────
    THEME TOKENS
 ───────────────────────────────────────── */
 const C = {
-  cream: "#f7f4ef",
-  ink: "#1c1917",
-  inkLight: "#44403c",
-  muted: "#78716c",
-  border: "#e7e5e4",
+  cream: "#f0f4ff",
+  ink: "#0f172a",
+  inkLight: "#1e3a5f",
+  muted: "#64748b",
+  border: "#cbd5e1",
   white: "#ffffff",
-  amber: "#f59e0b",
-  amberLight: "#fef3c7",
-  amberDark: "#92400e",
+  amber: "#3b82f6",
+  amberLight: "#dbeafe",
+  amberDark: "#1e40af",
   sky: "#e0f2fe",
   skyDark: "#0c4a6e",
   emerald: "#d1fae5",
   emeraldDark: "#064e3b",
-  darkBg: "#0f0e0d",
-  darkCard: "#1a1917",
-  darkBorder: "#2d2b29",
+  darkBg: "#0a0f1e",
+  darkCard: "#0f172a",
+  darkBorder: "#1e2d4a",
 };
 
 /* ─────────────────────────────────────────
@@ -171,7 +174,7 @@ function Nav() {
           textTransform: "uppercase",
         }}
       >
-        WEBD<span style={{ color: C.amber }}>.</span>dev
+        WEBD<span style={{ color: C.amber }}>.</span>tech
       </a>
 
       {!isMobile && (
@@ -283,6 +286,69 @@ function NavCTA() {
   );
 }
 
+function useCountUp(target, duration = 1500, startTrigger = true) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!startTrigger) return;
+    let start = null;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target, duration, startTrigger]);
+  return count;
+}
+
+function StatsRow() {
+  const [triggered, setTriggered] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setTriggered(true); },
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const projects = useCountUp(3, 1200, triggered);
+  const satisfaction = useCountUp(100, 1600, triggered);
+  const founders = useCountUp(2, 900, triggered);
+
+  const stats = [
+    [projects + "+", "Projects"],
+    [satisfaction + "%", "Satisfaction"],
+    [founders, "Founders"],
+  ];
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3,1fr)",
+        gap: 24,
+        maxWidth: 300,
+        marginTop: 88,
+      }}
+    >
+      {stats.map(([num, label]) => (
+        <div key={label} style={{ textAlign: "center" }}>
+          <p style={{ fontSize: 26, fontWeight: 900, color: C.ink, lineHeight: 1 }}>
+            {num}
+          </p>
+          <p style={{ fontSize: 11, color: C.muted, marginTop: 5 }}>{label}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ─────────────────────────────────────────
    HERO
 ───────────────────────────────────────── */
@@ -380,7 +446,7 @@ function Hero() {
             marginBottom: 36,
           }}
         >
-          Engineering
+          Elevating
           <br />
           <span style={{ color: "#a8a29e" }}>Digital</span>
           <br />
@@ -409,37 +475,7 @@ function Hero() {
         </div>
 
         {/* Stats row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3,1fr)",
-            gap: 24,
-            maxWidth: 300,
-            marginTop: 88,
-          }}
-        >
-          {[
-            ["3+", "Projects"],
-            ["100%", "Satisfaction"],
-            ["2", "Founders"],
-          ].map(([num, label]) => (
-            <div key={label} style={{ textAlign: "center" }}>
-              <p
-                style={{
-                  fontSize: 26,
-                  fontWeight: 900,
-                  color: C.ink,
-                  lineHeight: 1,
-                }}
-              >
-                {num}
-              </p>
-              <p style={{ fontSize: 11, color: C.muted, marginTop: 5 }}>
-                {label}
-              </p>
-            </div>
-          ))}
-        </div>
+<StatsRow />
       </div>
     </section>
   );
@@ -501,7 +537,7 @@ function CaseStudies() {
     >
       <div style={{ maxWidth: 960, margin: "0 auto" }}>
         <SectionLabel>Previous Works</SectionLabel>
-        <SectionTitle isMobile={isMobile}>Case Studies</SectionTitle>
+        <SectionTitle isMobile={isMobile}>Projects</SectionTitle>
 
         <div
           style={{
@@ -816,21 +852,21 @@ function About() {
   const isMobile = w < 640;
 
   const members = [
-    {
-      name: "Yusuf Rick",
-      initial: "Y",
-      role: "Backend Engineering",
-      bio: "Software Engineering student at Sheffield Hallam University. Architects robust server-side systems, REST APIs, and scalable infrastructure that power production-grade applications.",
-      accent: "rgba(56,189,248,0.1)",
-    },
-    {
-      name: "Amir Ziqry",
-      initial: "A",
-      role: "Frontend & UI/UX",
-      bio: "IT student at Multimedia University (MMU). Translates design vision into pixel-perfect React interfaces — obsessed with interaction details, performance, and craft.",
-      accent: "rgba(251,191,36,0.12)",
-    },
-  ];
+  {
+    name: "Yusuf Rick",
+    image: yusufRick,
+    role: "Backend Engineering",
+    bio: "Software Engineering student at Sheffield Hallam University. Architects robust server-side systems, REST APIs, and scalable infrastructure that power production-grade applications.",
+    accent: "rgba(56,189,248,0.1)",
+  },
+  {
+    name: "Amir Ziqry",
+    image: amirZiqry,
+    role: "Frontend & UI/UX",
+    bio: "IT student at Multimedia University (MMU). Translates design vision into pixel-perfect React interfaces — obsessed with interaction details, performance, and craft.",
+    accent: "rgba(251,191,36,0.12)",
+  },
+];
 
   return (
     <section
@@ -878,7 +914,7 @@ function About() {
             lineHeight: 1.15,
           }}
         >
-          Built by engineers,
+          Built by Students in IT,
           <br />
           <span style={{ color: "#57534e" }}>designed for impact.</span>
         </h2>
@@ -892,52 +928,57 @@ function About() {
           }}
         >
           {members.map((m) => (
-            <div
-              key={m.name}
-              style={{
-                background: `linear-gradient(135deg, ${m.accent} 0%, ${C.darkCard} 100%)`,
-                border: `1px solid ${C.darkBorder}`,
-                borderRadius: 20,
-                padding: "32px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 14,
-                  marginBottom: 16,
-                }}
-              >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: "50%",
-                    background: "#2d2b29",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 15,
-                    fontWeight: 900,
-                    color: C.cream,
-                    flexShrink: 0,
-                  }}
-                >
-                  {m.initial}
-                </div>
-                <div>
-                  <p style={{ fontWeight: 800, color: C.cream, fontSize: 14 }}>
-                    {m.name}
-                  </p>
-                  <p style={{ fontSize: 12, color: "#78716c" }}>{m.role}</p>
-                </div>
-              </div>
-              <p style={{ fontSize: 14, color: "#a8a29e", lineHeight: 1.65 }}>
-                {m.bio}
-              </p>
-            </div>
-          ))}
+  <div
+    key={m.name}
+    style={{
+      background: `linear-gradient(135deg, ${m.accent} 0%, ${C.darkCard} 100%)`,
+      border: `1px solid ${C.darkBorder}`,
+      borderRadius: 20,
+      overflow: "hidden",
+    }}
+  >
+    <div
+      style={{
+        width: "100%",
+        aspectRatio: "4 / 5",
+        overflow: "hidden",
+      }}
+    >
+      <img
+        src={m.image}
+        alt={m.name}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center top",
+          display: "block",
+        }}
+      />
+    </div>
+
+    <div style={{ padding: "24px 28px 28px" }}>
+      <p style={{ fontWeight: 800, color: C.cream, fontSize: 17, marginBottom: 4 }}>
+        {m.name}
+      </p>
+      <p
+        style={{
+          fontSize: 12,
+          color: C.amber,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
+          marginBottom: 14,
+        }}
+      >
+        {m.role}
+      </p>
+      <p style={{ fontSize: 14, color: "#a8a29e", lineHeight: 1.65 }}>
+        {m.bio}
+      </p>
+    </div>
+  </div>
+))}
         </div>
 
         {/* MMU badge */}
@@ -1286,10 +1327,10 @@ function Footer() {
           color: C.ink,
         }}
       >
-        WEBD<span style={{ color: C.amber }}>.</span>dev
+        WEBD<span style={{ color: C.amber }}>.</span>tech
       </span>
       <p style={{ fontSize: 12, color: C.muted }}>
-        © {new Date().getFullYear()} webd.dev — All rights
+        © {new Date().getFullYear()} webd.tech — All rights
         reserved.
       </p>
     </footer>
@@ -1349,7 +1390,7 @@ export default function Portfolio() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { scroll-behavior: smooth; width: 100%; background: #f7f4ef; }
+        html, body { scroll-behavior: smooth; width: 100%; background: #f0f4ff; }
         body { overflow-x: hidden; margin: 0; padding: 0; }
         #root { width: 100%; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
         @keyframes pulse {
