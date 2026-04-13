@@ -502,7 +502,7 @@ function Nav() {
       }}
     >
       <a href="#" style={{ fontWeight: 900, fontSize: 15, letterSpacing: "-0.01em", color: C.ink, textDecoration: "none", textTransform: "uppercase" }}>
-        WEBD<span style={{ color: C.amber }}>.</span>tech
+        WEBSENSE<span style={{ color: C.amber }}>.</span>AGENCY
       </a>
 
       {!isMobile && (
@@ -1189,8 +1189,8 @@ const Footer = memo(function Footer() {
   const w = useWidth();
   return (
     <footer style={{ padding: w < 640 ? "28px 24px" : "28px 48px", borderTop: `1px solid ${C.border}`, display: "flex", flexDirection: w < 480 ? "column" : "row", alignItems: "center", justifyContent: "space-between", gap: 12, background: C.cream }}>
-      <span style={{ fontWeight: 900, fontSize: 14, textTransform: "uppercase", color: C.ink }}>WEBD<span style={{ color: C.amber }}>.</span>tech</span>
-      <p style={{ fontSize: 12, color: C.muted }}>© {new Date().getFullYear()} webd.tech — All rights reserved.</p>
+      <span style={{ fontWeight: 900, fontSize: 14, textTransform: "uppercase", color: C.ink }}>WEBSENSE<span style={{ color: C.amber }}>.</span>AGENCY</span>
+      <p style={{ fontSize: 12, color: C.muted }}>© {new Date().getFullYear()} websense.agency — All rights reserved.</p>
     </footer>
   );
 });
