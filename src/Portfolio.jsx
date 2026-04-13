@@ -22,6 +22,8 @@ import {
 import yusufRick from "./assets/yusuf-rick.jpeg";
 import amirZiqry from "./assets/amir-ziqry.jpg";
 import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { createPortal } from "react-dom";
+
 
 /* ─────────────────────────────────────────
    THEME TOKENS
@@ -79,8 +81,8 @@ const PROJECTS = [
       testimonial: {
         quote:
           "The team delivered far beyond what we expected. Our procurement enquiries doubled within the first month and the site positions us exactly where we need to be — professional, credible, and easy to navigate.",
-        author: "Dr. Hafiz Razali",
-        title: "Director of Procurement, Mediliance",
+        author: "Riazzudin Ali Ahmad",
+        title: "Chief Executive Officer and Director, Mediliance Sdn Bhd",
       },
     },
   },
@@ -114,7 +116,7 @@ const PROJECTS = [
       testimonial: {
         quote:
           "We tried three agencies before these guys. Nobody else understood that luxury isn't just about aesthetics — it's about how every click feels. Our average order value went up 34% after the relaunch.",
-        author: "Isabelle Fontaine",
+        author: "Noor Azwanee",
         title: "Creative Director, Luxe Atelier",
       },
     },
@@ -149,7 +151,7 @@ const PROJECTS = [
       testimonial: {
         quote:
           "I show this site in every pitch now. Clients comment on it before I even start talking. That's what a great digital presence does — it sells for you before you open your mouth.",
-        author: "Kenji Kasahara",
+        author: "Amir Ziqry & Yusuf Rick",
         title: "Founder & Creative Director, Kasahara Studio",
       },
     },
@@ -394,7 +396,6 @@ function Modal({ children, onClose }) {
     document.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
 
-    /* trigger spring pop-in on next frame */
     requestAnimationFrame(() => {
       if (innerRef.current) {
         innerRef.current.style.opacity = "1";
@@ -408,7 +409,7 @@ function Modal({ children, onClose }) {
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{
@@ -426,19 +427,19 @@ function Modal({ children, onClose }) {
       <div
         ref={innerRef}
         onClick={(e) => e.stopPropagation()}
-        style={{
-          background: C.white,
-          borderRadius: 24,
-          width: "100%",
-          maxWidth: 620,
-          maxHeight: "88vh",
-          overflowY: "auto",
-          position: "relative",
-          /* spring pop-in — starts compressed + invisible */
-          opacity: 0,
-          transform: "scale(0.88) translateY(24px)",
-          transition: "opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.35s cubic-bezier(0.34,1.56,0.64,1)",
-        }}
+       style={{
+  background: C.white,
+  borderRadius: 24,
+  width: "100%",
+  maxWidth: 620,
+  maxHeight: "88vh",
+  overflowY: "auto",
+  position: "relative",
+  fontFamily: "'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",  // ← add this
+  opacity: 0,
+  transform: "scale(0.88) translateY(24px)",
+  transition: "opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.35s cubic-bezier(0.34,1.56,0.64,1)",
+}}
       >
         <button
           onClick={onClose}
@@ -465,7 +466,8 @@ function Modal({ children, onClose }) {
         </button>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body  // ← portal target: renders outside the stacking context
   );
 }
 
