@@ -211,7 +211,7 @@ const TEAM = [
     role: "Frontend & UI/UX",
     bio: "IT student at Multimedia University (MMU). Translates design vision into pixel-perfect React interfaces — obsessed with interaction details, performance, and craft.",
     accent: "rgba(251,191,36,0.12)",
-    portfolio: "https://amirziqry.dev",
+    portfolio: "https://www.ziqry.xyz",
     details: {
       university: "Multimedia University (MMU)",
       degree: "BSc Information Technology",
