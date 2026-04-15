@@ -75,8 +75,8 @@ const PROJECTS = [
         "SEO-optimised service pages for organic discovery",
       ],
       outcome:
-        "Launched within 6 weeks. Client reported a measurable increase in inbound enquiries from hospital procurement teams within the first month.",
-      duration: "6 weeks",
+        "Launched within 1 week. Client reported a measurable increase in inbound enquiries from hospital procurement teams within the first month.",
+      duration: "1 week",
       role: "Full-Stack Design & Development",
       testimonial: {
         quote:
@@ -111,7 +111,7 @@ const PROJECTS = [
       ],
       outcome:
         "Cart abandonment rate reduced significantly compared to the client's previous Shopify theme. Average order value increased due to improved cross-sell placements.",
-      duration: "8 weeks",
+      duration: "3 weeks",
       role: "Frontend Architecture & UI/UX Design",
       testimonial: {
         quote:
@@ -146,7 +146,7 @@ const PROJECTS = [
       ],
       outcome:
         "Site became a direct selling tool — Kasahara reported using it actively in client pitches. Organic enquiries from the contact form increased post-launch.",
-      duration: "10 weeks",
+      duration: "4 weeks",
       role: "Creative Direction, Full-Stack Development",
       testimonial: {
         quote:
@@ -199,10 +199,10 @@ const TEAM = [
     details: {
       university: "Sheffield Hallam University",
       degree: "BSc Software Engineering",
-      skills: ["Node.js", "Express", "MySQL", "REST APIs", "Docker", "AWS", "TypeScript"],
+      skills: ["Node.js", "Express", "MySQL", "REST APIs", "Docker","Javascript", "Python", "C#", "Arduino", "TypeScript"],
       focus:
         "Yusuf specialises in building the invisible backbone of web products — the APIs, databases, and server architecture that keep things fast, reliable, and secure. He brings a methodical, systems-first mindset to every project.",
-      interests: ["Distributed Systems", "API Design", "Cloud Infrastructure", "DevOps"],
+      interests: ["Software Security", "Artificial Intelligence", "Software Architecture", "Robotics"],
     },
   },
   {
@@ -215,7 +215,7 @@ const TEAM = [
     details: {
       university: "Multimedia University (MMU)",
       degree: "BSc Information Technology",
-      skills: ["React", "Next.js", "Figma", "Tailwind CSS", "TypeScript", "Framer Motion", "GSAP"],
+      skills: ["React", "Next.js", "JavaScript", "C++", "MySQL", "Figma", "Tailwind CSS"],
       focus:
         "Amir lives at the intersection of design and engineering. He believes the best interfaces are the ones users don't notice — they just work, they feel right, and they leave an impression. Every pixel is a deliberate choice.",
       interests: ["Interaction Design", "Web Performance", "Design Systems", "Motion Design"],
